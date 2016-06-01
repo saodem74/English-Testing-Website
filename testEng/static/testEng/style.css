@@ -1,0 +1,54 @@
+body {
+    background: white url("images/background2.jpg");
+}
+
+.container{
+    background: white;
+    border-radius:3px;
+    padding:20px 50px;
+}
+
+.row{
+    border-radius:3px;
+    padding:10px 10px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.row-comment{
+    border-style: solid;
+    border-color: green;
+    border-width: 0px 0px 0px 5px;
+    margin:10px;
+    padding:0px 10px;
+}
+
+ul.errorlist {
+    padding-left: 0;
+}
+
+ul.errorlist > li {
+    list-style: none;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-brand {
+    font-family: 'Satisfy', cursive;
+}
+
+.glyphicon-star {
+    color: #CCCCCC;
+    font-size: 16px;
+}
+
+.glyphicon-star.active {
+    color: #FDB230;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}

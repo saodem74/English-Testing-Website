@@ -1,0 +1,78 @@
+{% extends 'testEng/base.html' %}
+{% block title %}Topic details{% endblock %}
+{% block body %}
+{% csrf_token %}
+<div class="container">
+    <div>
+        <h3>{{ curTopic.name }} </h3>
+        <p>
+            {{ curTopic.content|linebreaksbr }}
+        </p>
+        <h6> Posted by: {{ curTopic.user }} </h6>
+
+        <a href="{% url 'testEng:topic-update' curTopic.id %}">
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-edit"></span>&nbsp; Edit
+            </button>
+        </a>
+
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
+            <span class="glyphicon glyphicon-trash"></span>&nbsp; Delete
+        </button>
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header label-warning">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">
+                      <span class="glyphicon glyphicon-warning-sign"></span>&nbsp; Delete Topic
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  <p>Do you want to delete the topic: {{ curTopic.name }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="{% url 'testEng:topic-delete' curTopic.id %}" method="post" style="display: inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="topic_id" value="{{curTopic.id}}"/>
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-trash"></span>&nbsp; Delete
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        <div class="row">
+                <h2>Comments</h2>
+            {% for comment in comments %}
+                <div class="row-comment">
+                    <div class="row-comment-content">
+                        <h3>{{comment.content|linebreaksbr }}</h3>
+                    </div>
+                    <h5>commented by: {{comment.id_user}}</h5>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <form action="{% url 'testEng:detail-topic' curTopic.id %}" method="post" style="display: inline">
+            {% csrf_token %}
+                <div class="row">
+                    <textarea name="contentComment" rows="4" cols="50"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp; Add Comment
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

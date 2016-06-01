@@ -1,0 +1,18 @@
+{% extends 'testEng/base.html' %}
+
+{% block body %}
+<div class="container">
+        {% csrf_token %}
+        <form action="{% url 'testEng:testing' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp; Create a test
+                        </button>
+        </form>
+        <ul>
+            {% for quest in all_questions %}
+                <li><a href="{% url 'testEng:detail' quest.id %}"> {{quest.question}} </a></li>
+            {% endfor %}
+        </ul>
+</div>
+{% endblock %}

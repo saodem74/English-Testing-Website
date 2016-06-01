@@ -1,0 +1,14 @@
+django-admin startproject myenglish
+python3 manage.py runserver
+python3 manage.py startapp polls
+python3 manage.py migrate
+==> tranhieu
+==> trantrunghieu7492@gmail.com
+==> a..a92
+
+python3 manage.py makemigrations testEng
+python3 manage.py sqlmigrate testEng 0001
+python3 manage.py migrate
+
+
+// https://docs.djangoproject.com/en/1.9/intro/tutorial04/#write-a-simple-form

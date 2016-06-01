@@ -1,0 +1,66 @@
+{% extends 'testEng/base.html' %}
+{% block title %}Dictionary{% endblock %}
+{% block body %}
+
+{% csrf_token %}
+<div class="container">
+
+<form action="{% url 'testEng:dictionaryTolearn' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-play"></span>&nbsp; Words to learn
+    </button>
+</form>
+
+<form action="#" method="#">
+        <ul>
+            {% csrf_token %}
+            {% for curWord in all_words %}
+                <li>
+                    <h3>{{curWord.name}}</h3>
+
+                    <a href="{% url 'testEng:tolearn' curWord.id %}" class="btn-tolearn">
+                        <span class="glyphicon glyphicon-star {% if curWord.tolearn %}active{% endif %}">
+                        </span>
+                    </a>
+
+                    <!-- picure -->
+                    <a href="#">
+                        <img src="{{ curWord.image.url }}" class="img-responsive" style="width: 100px; float: left; margin-right: 10px;">
+                    </a>
+
+                    <p> <strong> Type:  </strong> {{ curWord.type}}</p>
+                    <p> <strong> Meaning:  </strong> {{ curWord.meaning}}</p>
+                    <p><strong> Pronunciation: </strong> {{ curWord.pronunc}}</p>
+                    <!-- audio -->
+                    <a target="_blank" href="{{ curWord.audio.url }}">
+                        <button type="button" class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                        </button>
+                    </a>
+
+                    <a href="{% url 'testEng:word-update' curWord.id %}">
+                      <button type="button" class="btn btn-default btn-sm">
+                          <span class="glyphicon glyphicon-edit"></span> &nbsp; Edit
+                      </button>
+                     </a>
+
+
+                    <!-- Delete -->
+                    <form action="{% url 'testEng:word-delete' curWord.id %}" method="post" style="display: inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="word_id" value="{{word.id}}"/>
+                        <button type="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-trash"></span> &nbsp; Delete
+                        </button>
+                    </form>
+
+                </li>
+                <br/>
+            {% endfor %}
+            <!--<input type="submit" value="markTolearn" >-->
+        </ul>
+</form>
+
+</div>
+{% endblock %}

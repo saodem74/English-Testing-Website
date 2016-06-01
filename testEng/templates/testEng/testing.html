@@ -1,0 +1,42 @@
+{% extends 'testEng/base.html' %}
+{% block title %}Question details{% endblock %}
+{% block body %}
+
+<div class="container">
+
+<form action="{% url 'testEng:index'%}" method="post">
+     {% csrf_token %}
+    <form action="">
+     {% for quest in all_questions %}
+        <h5> Question: {{quest.question }}</h5>
+
+        {% for ans in optionAnswers %}
+            {% if ans.id_question == quest %}
+                <input type="radio" name="{{ans.id_question }}" id="choice{{ forloop.counter }}" value="{{ ans.isCorrect }}" />
+                <label for="choice{{ forloop.counter }}">{{ ans.content }}</label><br />
+            {% endif %}
+        {% endfor %}
+     {% endfor %}
+        <button type="submit" class="btn btn-success" onclick="showAnswer()">
+            <span class="glyphicon glyphicon-send"></span>&nbsp; Send answers
+        </button>
+    </form>
+</form>
+
+</div>
+
+<script>
+    function showAnswer(){
+        var mark = 0;
+        var radios = document.getElementsByTagName('input');
+        for( i = 0; i < radios.length; i++ ) {
+            if( radios[i].checked && radios[i].value == 'True') {
+                mark++;
+            }
+        }
+        alert("correct answers = " + mark);
+    return null;
+    }
+</script>
+
+{% endblock %}
